@@ -1,86 +1,34 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Lab 2 Prabesh Chhetri</title>
-    <style>
-        html {
-            font-family: sans-serif;
-            font-size: 200%;
-            background-color: rgb(0, 0, 0);
-            color: rgb(255, 255, 255);
-            transition-property: background-color;
-            transition-duration: 0.10s;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <script defer src="js/scripts.js"></script>
 </head>
-
 <body>
-    <h1>Lab 2</h1>
-    <p>
-        This script will enable the user to adjust the below range input
-        elements to modify the
-        <abbr title="Red, Green, Blue">RGB</abbr> values of the
-        <code>background-color</code> CSS property of the HTML element.
-    </p>
-    <label for="red">Red</label>
-    <input id="red" type="range" min="0" max="255" value="0" />
-    <label for="green">Green</label>
-    <input id="green" type="range" min="0" max="255" value="0" />
-    <label for="blue">Blue</label>
-    <input id="blue" type="range" min="0" max="255" value="0" />
+    <h1>Image and Colour Gallery</h1>
 
-    <script>
-        /* Declaring and initializing global variables */
-        var pageBg = document.querySelector("html");
-        var sliders = document.getElementsByTagName("input");
-        var rgb = [0, 0, 0];
+    <!-- Input section to change background color -->
+    <div>
+        <label for="colorInput">Enter a value between 0 and 100:</label>
+        <input type="number" id="colorInput">
+        <button id="changeColorBtn">Change custom color</button>
+        <p id="studentIdDisplay">Your student ID will appear here.</p>
+    </div>
 
-        /* Event handlers for range slider */
-        for (var i = 0; i < sliders.length; i++) {
-            sliders[i].onchange = function () {
-                var whichSlider = this.getAttribute("id");
-                var sliderValue = this.value;
-                var newRgb = changeRgb(whichSlider, sliderValue);
-                var newCSS = writeCSS(newRgb);
-                pageBg.style.backgroundColor = newCSS;
-            };
-        }
+    <!-- Button to change random color -->
+    <button id="randomColorBtn">Change random color</button>
 
-        
-        // This function updates the RGB value based on the colour
-        function changeRgb(channel, value) {
-            switch (channel) {
-                case "red":
-                    rgb[0] = value; 
-                    break;
-                case "green":
-                    rgb[1] = value; 
-                    break;
-                case "blue":
-                    rgb[2] = value; 
-                    break;
-            }
-            return rgb; 
-        }
-
-       
-        function writeCSS(newRgb) {
-            var newColor = "rgb(";
-            var i = 0;
-
-           
-            while (i < newRgb.length) {
-                newColor += newRgb[i] + ", ";
-                i++;
-            }
-
-            
-            newColor = newColor.slice(0, -2) + ")";
-            return newColor; // Return the CSS rgb string
-        }
-    </script>
+    <!-- Select for image options -->
+    <select id="imageSelector">
+        <option value="">Select an image</option>
+    </select>
+    <div id="imageDisplay">
+        <img src="" alt="Selected Image" id="selectedImage" style="display:none;">
+    </div>
 </body>
-
 </html>
