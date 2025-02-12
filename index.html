@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Lab 2 Prabesh Chhetri</title>
+    <style>
+        html {
+            font-family: sans-serif;
+            font-size: 200%;
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
+            transition-property: background-color;
+            transition-duration: 0.10s;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Lab 2</h1>
+    <p>
+        This script will enable the user to adjust the below range input
+        elements to modify the
+        <abbr title="Red, Green, Blue">RGB</abbr> values of the
+        <code>background-color</code> CSS property of the HTML element.
+    </p>
+    <label for="red">Red</label>
+    <input id="red" type="range" min="0" max="255" value="0" />
+    <label for="green">Green</label>
+    <input id="green" type="range" min="0" max="255" value="0" />
+    <label for="blue">Blue</label>
+    <input id="blue" type="range" min="0" max="255" value="0" />
+
+    <script>
+        /* Declaring and initializing global variables */
+        var pageBg = document.querySelector("html");
+        var sliders = document.getElementsByTagName("input");
+        var rgb = [0, 0, 0];
+
+        /* Event handlers for range slider */
+        for (var i = 0; i < sliders.length; i++) {
+            sliders[i].onchange = function () {
+                var whichSlider = this.getAttribute("id");
+                var sliderValue = this.value;
+                var newRgb = changeRgb(whichSlider, sliderValue);
+                var newCSS = writeCSS(newRgb);
+                pageBg.style.backgroundColor = newCSS;
+            };
+        }
+
+        
+        // This function updates the RGB value based on the colour
+        function changeRgb(channel, value) {
+            switch (channel) {
+                case "red":
+                    rgb[0] = value; 
+                    break;
+                case "green":
+                    rgb[1] = value; 
+                    break;
+                case "blue":
+                    rgb[2] = value; 
+                    break;
+            }
+            return rgb; 
+        }
+
+       
+        function writeCSS(newRgb) {
+            var newColor = "rgb(";
+            var i = 0;
+
+           
+            while (i < newRgb.length) {
+                newColor += newRgb[i] + ", ";
+                i++;
+            }
+
+            
+            newColor = newColor.slice(0, -2) + ")";
+            return newColor; // Return the CSS rgb string
+        }
+    </script>
+</body>
+
+</html>
